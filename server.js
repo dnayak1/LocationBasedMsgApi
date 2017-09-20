@@ -1,5 +1,6 @@
 var express    = require("express");
 var login = require('./routes/loginroutes');
+var message = require('./routes/messageroutes');
 var bodyParser = require('body-parser');
 var app = express();
 var router = express.Router();
@@ -14,6 +15,9 @@ app.use(function(req, res, next) {
 
 router.post('/register',login.register);
 router.post('/login',login.login);
+router.post('/getUsers',login.getUsers);
+router.post('/sendMessage',message.sendMessage);
+router.post('/getMessages',message.getMessages);
 // router.post('/view',login.view);
 // router.post('/update',login.update);
 

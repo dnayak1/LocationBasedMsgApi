@@ -96,3 +96,20 @@ exports.login = function(req,res){
   }
   });
 };
+
+exports.getUsers = function(req,res){
+  var userName= req.body.userName;
+  connection.query('select UserName from User where UserName <> ?',[userName], function (error, results, fields){
+    if (error) {
+      message = "error occured";
+      res.send({
+        "code":400,
+        "message":message
+      })
+    }else{
+      res.send({
+        "result":results
+      });
+    }
+  });
+};
