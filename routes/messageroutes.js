@@ -192,6 +192,7 @@ exports.unlockMessages = function(req,res){
           "message": message
         });
       }else{
+        console.log('Querying the database...');
         connection.query('update Message set isLocked=0 where receiver=? AND region = ?',[receiver],[region], function (error, results, fields){
           if (error) {
             console.log("error ocurred",error.code);
