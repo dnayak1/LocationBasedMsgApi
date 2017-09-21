@@ -181,7 +181,7 @@ exports.readMessages = function(req,res){
 
 exports.unlockMessages = function(req,res){
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
-  var reciever = req.body.receiver;
+  var receiver = req.body.receiver;
   var region = req.body.region;
   if(token){
     jwt.verify(token, 'superSecret', function(err, decoded) {
