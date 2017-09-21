@@ -99,7 +99,7 @@ exports.login = function(req,res){
 
 exports.getUsers = function(req,res){
   var userName= req.body.userName;
-  connection.query('select UserName from User where UserName <> ?',[userName], function (error, results, fields){
+  connection.query('select UserName,FirstName,LastName from User where UserName <> ?',[userName], function (error, results, fields){
     if (error) {
       message = "error occured";
       res.send({
