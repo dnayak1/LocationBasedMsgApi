@@ -137,3 +137,44 @@ exports.deleteMessages = function(req,res){
     });
   }
 };
+
+
+exports.readMessages = function(req,res){
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  var messageId=req.body.messageId;
+
+  if(token){
+    jwt.verify(token, 'superSecret', function(err, decoded) {
+      if (err) {
+        message="Failed to authenticate token."
+        res.send({
+          "code": "200",
+          "message": message
+        });
+      }else{
+        connection.query('update Message set isRead=1 where messageId=?',[messageId], function (error, results, fields){
+          if (error) {
+            console.log("error ocurred",error.code);
+            message = "Deleting message failed"
+            res.send({
+              "code":400,
+              "message":message
+            });
+          }else{
+            message = "success";
+            res.send({
+              "code":200,
+              "message":message,
+                });
+          }
+        });
+      }
+    });
+  }else{
+    message="Invalid token";
+    res.send({
+      "code":400,
+      "message":message
+    });
+  }
+};
