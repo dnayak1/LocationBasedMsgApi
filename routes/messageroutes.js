@@ -66,7 +66,7 @@ exports.getMessages = function(req,res){
           "message": message
         });
       }else{
-        connection.query('select u.FirstName,u.LastName,m.Sender,m.Message,m.isRead,m.isLocked,m.Date,m.Region from Message m inner join User u on u.UserName=m.Sender where m.Receiver=?',userName, function (error, results, fields){
+        connection.query('select u.FirstName,u.LastName,m.messageId,m.Sender,m.Message,m.isRead,m.isLocked,m.Date,m.Region from Message m inner join User u on u.UserName=m.Sender where m.Receiver=?',userName, function (error, results, fields){
           if (error) {
             console.log("error ocurred",error.code);
             message = "Fetchning message failed"
@@ -97,9 +97,10 @@ exports.getMessages = function(req,res){
 
 exports.deleteMessages = function(req,res){
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
-  var userName=req.body.userName;
-  var sender=req.body.sender;
-  var region=req.body.region;
+  // var userName=req.body.userName;
+  // var sender=req.body.sender;
+  // var region=req.body.region;
+  var messageId=req.body.messageId;
 
   if(token){
     jwt.verify(token, 'superSecret', function(err, decoded) {
@@ -110,7 +111,7 @@ exports.deleteMessages = function(req,res){
           "message": message
         });
       }else{
-        connection.query('delete from Message where Sender=? and Receiver=? and Region=?',[sender,userName,region], function (error, results, fields){
+        connection.query('delete from Message where messageId=?',[messageId], function (error, results, fields){
           if (error) {
             console.log("error ocurred",error.code);
             message = "Deleting message failed"
