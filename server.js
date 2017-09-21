@@ -20,7 +20,7 @@ router.post('/sendMessage',message.sendMessage);
 router.post('/getMessages',message.getMessages);
 router.post('/deleteMessages',message.deleteMessages);
 router.post('/readMessages',message.readMessages);
-router.post('/unlockMessages'message.unlockMessages);
+router.post('/unlockMessages',message.unlockMessages);
 
 app.use('/api', router);
 app.listen(5000);
