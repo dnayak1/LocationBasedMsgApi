@@ -25,9 +25,6 @@ exports.sendMessage = function(req,res){
           "sender":req.body.sender,
           "receiver":req.body.receiver,
           "message":req.body.message,
-          "isRead":req.body.isRead,
-          "isLocked":req.body.isLocked,
-          "date":req.body.date,
           "region":req.body.region
         }
         connection.query('INSERT INTO Message SET ?',msg, function (error, results, fields){
