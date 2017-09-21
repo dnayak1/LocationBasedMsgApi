@@ -205,7 +205,7 @@ exports.unlockMessages = function(req,res){
             message = "success";
             res.send({
               "code":200,
-              "message":message,
+              "message":results,
                 });
           }
         });
