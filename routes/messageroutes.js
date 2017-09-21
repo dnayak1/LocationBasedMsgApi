@@ -27,7 +27,8 @@ exports.sendMessage = function(req,res){
           "message":req.body.message,
           "isRead":req.body.isRead,
           "isLocked":req.body.isLocked,
-          "date":req.body.date
+          "date":req.body.date,
+          "region":req.body.region
         }
         connection.query('INSERT INTO Message SET ?',msg, function (error, results, fields){
           if (error) {
@@ -68,7 +69,7 @@ exports.getMessages = function(req,res){
           "message": message
         });
       }else{
-        connection.query('select u.FirstName,u.LastName,m.Sender,m.Message,m.isRead,m.isLocked,m.Date from Message m inner join User u on u.UserName=m.Sender where m.Receiver=?',userName, function (error, results, fields){
+        connection.query('select u.FirstName,u.LastName,m.Sender,m.Message,m.isRead,m.isLocked,m.Date,m.Region from Message m inner join User u on u.UserName=m.Sender where m.Receiver=?',userName, function (error, results, fields){
           if (error) {
             console.log("error ocurred",error.code);
             message = "Fetchning message failed"
